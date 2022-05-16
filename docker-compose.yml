@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  db:
+    container_name: postgres-pharmacy
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=pharmacy
+    ports:
+      - 3005:5432
+    volumes:
+      - ./db:/var/lib/postgresql/data

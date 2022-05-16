@@ -1,0 +1,164 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Customer {
+  id          Int     @id @default(autoincrement())
+  email       String  @unique
+  name        String
+  avatar      String?
+  password    String?
+  google_id   String?
+  facebook_id String?
+  Order       Order[]
+  Cart        Cart[]
+
+  @@map("customer")
+}
+
+model Order {
+  id             Int              @id @default(autoincrement())
+  Customer       Customer         @relation(fields: [customerId], references: [id])
+  customerId     Int              @map("customer_id")
+  total          Decimal
+  adress         String
+  OrderStatus    OrderStatus      @relation(fields: [orderStatusId], references: [id])
+  orderStatusId  Int              @map("orderstatus_id")
+  OrderToProduct OrderToProduct[]
+  createdAt      DateTime         @default(now()) @map("created_at")
+  updatedAt      DateTime         @updatedAt @map("updated_at")
+
+  @@map("order")
+}
+
+model OrderStatus {
+  id    Int     @id @default(autoincrement())
+  name  String
+  Order Order[]
+
+  @@map("order_status")
+}
+
+model Product {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  description       String
+  image             String
+  price             Decimal
+  quantity          Int
+  Category          Category?           @relation(fields: [categoryId], references: [id])
+  categoryId        Int?                @map("category_id")
+  OrderToProduct    OrderToProduct[]
+  CategoryToProduct CategoryToProduct[]
+  CartToProduct     CartToProduct[]
+  Manufacturer      Manufacturer?       @relation(fields: [manufacturerId], references: [id])
+  manufacturerId    Int?                @map("manufacturer_id")
+
+  @@map("product")
+}
+
+model OrderToProduct {
+  Order     Order   @relation(fields: [orderId], references: [id])
+  orderId   Int     @map("order_id")
+  Product   Product @relation(fields: [productId], references: [id])
+  productId Int     @map("product_id")
+
+  @@id([orderId, productId])
+  @@map("order_to_product")
+}
+
+model Manufacturer {
+  id        Int       @id @default(autoincrement())
+  logo      String
+  name      String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  Products  Product[]
+
+  @@map("manufacturer")
+}
+
+model Category {
+  id                Int                 @id @default(autoincrement())
+  createdAt         DateTime            @default(now()) @map("created_at")
+  updatedAt         DateTime            @updatedAt @map("updated_at")
+  Products          Product[]
+  name              String
+  description       String
+  image             String
+  parentCategoryId  Int?                @map("parent_category_id")
+  ParentCategory    Category?           @relation("CategoryToCategory", fields: [parentCategoryId], references: [id])
+  SubCategories     Category[]          @relation("CategoryToCategory")
+  CategoryToProduct CategoryToProduct[]
+
+  @@map("category")
+}
+
+model CategoryToProduct {
+  Category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int      @map("category_id")
+  Product    Product  @relation(fields: [productId], references: [id])
+  productId  Int      @map("product_id")
+
+  @@id([categoryId, productId])
+  @@map("category_to_product")
+}
+
+model Cart {
+  id            Int             @id @default(autoincrement())
+  Customer      Customer        @relation(fields: [customerId], references: [id])
+  customerId    Int             @map("customer_id")
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @updatedAt @map("updated_at")
+  CartToProduct CartToProduct[]
+
+  @@map("cart")
+}
+
+model CartToProduct {
+  Cart      Cart     @relation(fields: [cartId], references: [id])
+  cartId    Int      @map("cart_id")
+  Product   Product  @relation(fields: [productId], references: [id])
+  productId Int      @map("product_id")
+  quantity  Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@id([cartId, productId])
+  @@map("cart_to_product")
+}
+
+model Admin {
+  id       Int    @id @default(autoincrement())
+  login    String @unique
+  password String
+
+  @@map("admin")
+}
+
+model SliderBanner {
+  id    Int     @id @default(autoincrement())
+  image String
+  title String?
+  link  String?
+
+  @@map("slider_banner")
+}
+
+model StoreConfig {
+  id          Int     @id @default(autoincrement())
+  name        String
+  logo        String
+  phone1      String?
+  phone2      String?
+  address1    String?
+  address2    String?
+  description String?
+
+  @@map("store_config")
+}
