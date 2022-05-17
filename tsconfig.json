@@ -16,6 +16,29 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+		"paths": {
+			"@core/*":[
+				"src/core/*"
+			],
+			"@constants/*":[
+				"src/core/constants/*"
+			],
+			"@guards/*":[
+				"src/core/guards/*"
+			],
+			"@pipes/*":[
+				"src/core/pipes/*"
+			],
+			"@interceptors/*":[
+				"src/core/interceptors/*"
+			],
+			"@modules/*":[
+				"src/modules/*"
+			],
+			"@utils/*":[
+				"src/utils/*"
+			]
+		}
   }
 }

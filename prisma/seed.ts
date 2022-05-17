@@ -19,7 +19,6 @@ async function generateAdmins() {
 async function generateCustomers() {
   await prisma.customer.create({
     data: {
-      id: 0,
       email: faker.internet.email(),
       name: faker.name.findName(),
       avatar: faker.internet.avatar(),
@@ -27,7 +26,6 @@ async function generateCustomers() {
   });
   await prisma.customer.create({
     data: {
-      id: 1,
       email: faker.internet.email(),
       name: faker.name.findName(),
       avatar: faker.internet.avatar(),
@@ -35,7 +33,6 @@ async function generateCustomers() {
   });
   await prisma.customer.create({
     data: {
-      id: 2,
       email: faker.internet.email(),
       name: faker.name.findName(),
       avatar: faker.internet.avatar(),
@@ -47,19 +44,15 @@ async function generateOrderStatus() {
   await prisma.orderStatus.createMany({
     data: [
       {
-        id: 0,
         name: 'placed',
       },
       {
-        id: 1,
         name: 'in progress',
       },
       {
-        id: 2,
         name: 'shipping',
       },
       {
-        id: 3,
         name: 'delivered',
       },
     ],

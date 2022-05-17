@@ -8,15 +8,15 @@ datasource db {
 }
 
 model Customer {
-  id          Int     @id @default(autoincrement())
-  email       String  @unique
-  name        String
-  avatar      String?
-  password    String?
-  google_id   String?
-  facebook_id String?
-  Order       Order[]
-  Cart        Cart[]
+  id         Int     @id @default(autoincrement())
+  email      String  @unique
+  name       String
+  avatar     String?
+  password   String?
+  googleId   String? @map("google_id")
+  facebookId String? @map("facebook_id")
+  Order      Order[]
+  Cart       Cart[]
 
   @@map("customer")
 }
