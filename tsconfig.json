@@ -21,7 +21,14 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+		"types": ["node"],
+		"paths": {
+			"@utils/*":["src/app/shared/utils/*"],
+			"@validators/*":["src/app/shared/validators/*"],
+			"@dto/*":["src/app/shared/dto/*"],
+			"@env/*":["src/environments/*"]
+		}
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

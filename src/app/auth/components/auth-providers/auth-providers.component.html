@@ -1,0 +1,17 @@
+<div class="provider-btn-container">
+  <button
+    [clrLoading]="googleLoading"
+    [disabled]="googleLoading"
+    class="btn btn-block"
+    (click)="redirectToGoogleSSO(GOOLE_LOGIN_URL)"
+  >
+    <div class="provider-btn-inner">
+      <google-icon></google-icon><span>Google</span>
+    </div>
+  </button>
+  <button disabled class="btn btn-block">
+    <div class="provider-btn-inner">
+      <facebook-icon></facebook-icon><span>Facebook</span>
+    </div>
+  </button>
+</div>

@@ -1,0 +1,58 @@
+<form clrForm [formGroup]="form" (ngSubmit)="submit()" class="form-flex">
+  <clr-input-container>
+    <label class="clr-sr-only">Login</label>
+    <input
+      clrInput
+      formControlName="email"
+      type="text"
+      placeholder="Login"
+      name="example"
+      class="clr-col-12"
+      required
+    />
+    <clr-control-error *clrIfError="'required'"
+      >Email is required</clr-control-error
+    >
+    <clr-control-error *clrIfError="'email'">Invalid email</clr-control-error>
+  </clr-input-container>
+  <clr-password-container>
+    <label class="clr-sr-only">Password</label>
+    <input
+      clrPassword
+      formControlName="password"
+      type="password"
+      name="password"
+      placeholder="Password"
+      class="clr-col-12"
+    />
+    <clr-control-error *clrIfError="'required'"
+      >Password is required</clr-control-error
+    >
+    <clr-control-error *clrIfError="'invalidPattern'"
+      >Invalid pattern
+    </clr-control-error>
+  </clr-password-container>
+  <div *ngIf="responseError" class="alert alert-danger" role="alert">
+    <div class="alert-items">
+      <div class="alert-item static">
+        <div class="alert-icon-wrapper">
+          <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+        </div>
+        <span class="alert-text">
+          {{ responseError }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <button
+    [disabled]="!form.valid || loading"
+    type="submit"
+    class="btn btn-primary clr-col-12"
+  >
+    <ng-container *ngIf="!loading; else spinner">Login</ng-container>
+  </button>
+  <ng-template #spinner
+    ><span class="spinner spinner-inline"> Loading... </span>
+    <span> Loading... </span></ng-template
+  >
+</form>

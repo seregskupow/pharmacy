@@ -3,7 +3,14 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": ["node"],
+		"baseUrl": "./",
+		"paths": {
+			"@utils/*":["src/app/shared/utils/*"],
+			"@validators/*":["src/app/shared/validators/*"],
+			"@dto/*":["src/app/shared/dto/*"],
+			"@env/*":["src/environments/*"]
+		}
   },
   "files": [
     "src/main.ts",

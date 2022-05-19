@@ -1,0 +1,36 @@
+<div class="auth-container">
+  <div class="auth-panel p-10">
+    <div class="tabs">
+      <clr-tabs>
+        <clr-tab>
+          <button
+            clrTabLink
+            [class.active]="isActivePath('login')"
+            routerLink="./login"
+            id="link1"
+          >
+            Login
+          </button>
+        </clr-tab>
+        <clr-tab>
+          <button
+            clrTabLink
+            [class.active]="isActivePath('register')"
+            routerLink="./register"
+            id="link2"
+          >
+            Register
+          </button>
+        </clr-tab>
+      </clr-tabs>
+    </div>
+    <div class="auth-form">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="clr-row clr-justify-content-center my-10">
+      <span class="label label-blue">Or use</span>
+    </div>
+
+    <app-auth-providers></app-auth-providers>
+  </div>
+</div>

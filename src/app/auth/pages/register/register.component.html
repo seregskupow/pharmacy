@@ -1,0 +1,138 @@
+<form clrForm [formGroup]="form" (ngSubmit)="submit()" class="form-flex">
+  <div class="avatar-upload">
+    <img
+      [src]="avatar | async"
+      class="avatar btn__click"
+      (click)="file.click()"
+      alt=""
+    />
+    <div *ngIf="imgError" class="alert alert-danger" role="alert">
+      <div class="alert-items">
+        <div class="alert-item static">
+          <div class="alert-icon-wrapper">
+            <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+          </div>
+          <span class="alert-text">
+            {{ imgError }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <input
+      #file
+      class="file-input"
+      type="file"
+      (change)="onChange($event)"
+      placeholder="Upload file"
+      accept="image/*"
+    />
+    <div class="clr-row mt-5">
+      <button
+        type="button"
+        (click)="file.click()"
+        class="btn btn-link file-upload-btn clr-col-6"
+      >
+        Choose Image
+      </button>
+      <button
+        type="button"
+        (click)="resetImage()"
+        class="btn btn-link file-upload-btn clr-col-6"
+      >
+        Reset Image
+      </button>
+    </div>
+  </div>
+  <clr-input-container>
+    <label class="clr-sr-only">Username</label>
+    <input
+      type="text"
+      formControlName="name"
+      name="name"
+      clrInput
+      placeholder="Username"
+      class="clr-col-12"
+    />
+    <clr-control-error *clrIfError="'required'"
+      >Name is required</clr-control-error
+    >
+    <clr-control-error *clrIfError="'minlength'"
+      >Name min length is 6</clr-control-error
+    >
+  </clr-input-container>
+
+  <clr-input-container>
+    <label class="clr-sr-only">Login</label>
+    <input
+      clrInput
+      type="email"
+      formControlName="email"
+      placeholder="Email"
+      name="example"
+      class="clr-col-12"
+      required
+    />
+    <clr-control-error *clrIfError="'email'">Invalid email</clr-control-error>
+    <clr-control-error *clrIfError="'required'"
+      >Email is required</clr-control-error
+    >
+  </clr-input-container>
+  <clr-password-container>
+    <label class="clr-sr-only">Password</label>
+    <input
+      type="password"
+      name="password"
+      formControlName="password"
+      clrPassword
+      placeholder="Password"
+      class="clr-col-12"
+    />
+    <clr-control-error *clrIfError="'required'"
+      >Password is required</clr-control-error
+    >
+    <clr-control-error *clrIfError="'invalidPattern'"
+      >Invalid pattern
+    </clr-control-error>
+  </clr-password-container>
+  <clr-password-container>
+    <label class="clr-sr-only">Repeat password</label>
+    <input
+      type="password"
+      name="password"
+      clrPassword
+      formControlName="repeatPassword"
+      placeholder="Repeat password"
+      class="clr-col-12"
+    />
+    <clr-control-error *clrIfError="'required'"
+      >Password is required</clr-control-error
+    >
+    <clr-control-error *clrIfError="'notEqual'"
+      >Passwords should match
+    </clr-control-error>
+  </clr-password-container>
+  <div *ngIf="responseError" class="alert alert-danger" role="alert">
+    <div class="alert-items">
+      <div class="alert-item static">
+        <div class="alert-icon-wrapper">
+          <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+        </div>
+        <span class="alert-text">
+          {{ responseError }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <button
+    [disabled]="!form.valid || loading"
+    type="submit"
+    class="btn btn-primary clr-col-12"
+  >
+    <ng-container *ngIf="!loading; else spinner">Register</ng-container>
+  </button>
+
+  <ng-template #spinner
+    ><span class="spinner spinner-inline"> Loading... </span>
+    <span> Loading... </span></ng-template
+  >
+</form>
