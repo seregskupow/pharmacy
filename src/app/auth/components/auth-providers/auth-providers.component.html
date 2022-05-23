@@ -1,8 +1,28 @@
-<div class="provider-btn-container">
-  <button
-    [clrLoading]="googleLoading"
+<div class="w-full flex flex-column max-w-25rem">
+  <p-button
     [disabled]="googleLoading"
-    class="btn btn-block"
+    [loading]="googleLoading"
+    styleClass="p-button-outlined w-full flex justify-content-center align-content-center max-h-10rem mb-3"
+    label="Google"
+    (click)="redirectToGoogleSSO(GOOLE_LOGIN_URL)"
+  >
+    <div class="h-2rem">
+      <google-icon *ngIf="!googleLoading"></google-icon>
+    </div>
+  </p-button>
+  <p-button
+    [disabled]="true"
+    styleClass="p-button-outlined w-full flex justify-content-center align-content-center"
+    label="Facebook"
+  >
+    <div class="h-2rem">
+      <facebook-icon></facebook-icon>
+    </div>
+  </p-button>
+
+  <!-- <button
+    [disabled]="googleLoading"
+    class="w-full"
     (click)="redirectToGoogleSSO(GOOLE_LOGIN_URL)"
   >
     <div class="provider-btn-inner">
@@ -13,5 +33,5 @@
     <div class="provider-btn-inner">
       <facebook-icon></facebook-icon><span>Facebook</span>
     </div>
-  </button>
+  </button> -->
 </div>

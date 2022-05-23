@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -19,6 +25,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
+  @ViewChild('file') fileInput!: ElementRef;
   avatar = new BehaviorSubject<string>(avatarPlaceholder);
   imgError = '';
   responseError = '';
@@ -37,13 +44,25 @@ export class RegisterComponent implements OnInit, OnDestroy {
     ]),
     repeatPassword: new FormControl('', [
       Validators.required,
-      customPatternValid({
-        pattern: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/,
-        msg: 'Invalid pattern',
-      }),
       this.confirmPasswordValid.bind(this),
     ]),
   });
+
+  get nameField() {
+    return this.form.get('name');
+  }
+
+  get emailField() {
+    return this.form.get('email');
+  }
+
+  get passwordField() {
+    return this.form.get('password');
+  }
+
+  get repeatPasswordField() {
+    return this.form.get('repeatPassword');
+  }
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -74,6 +93,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   resetImage() {
     this.avatar.next(avatarPlaceholder);
+    this.imgError = '';
+    const input: HTMLInputElement = this.fileInput
+      ?.nativeElement as HTMLInputElement;
+    if (input) {
+      input.value = '';
+    }
   }
 
   submit() {

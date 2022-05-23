@@ -1,0 +1,34 @@
+<div class="flex">
+  <ng-container *ngIf="!(authService.user | async) as user">
+    <a
+      (click)="menu.toggle($event)"
+      pRipple
+      enterclass="hidden"
+      enteractiveclass="scalein"
+      leavetoclass="hidden"
+      leaveactiveclass="fadeout"
+      class="inline-flex align-items-center cursor-pointer px-1 lg:px-3 mr-2 lg:mr-0 border-bottom-2 border-transparent hover:border-primary select-none"
+      ><i class="pi pi-user text-xl"></i><span class="hidden">My Account</span
+      ><span
+        class="p-ink"
+        style="height: 79px; width: 79px; top: 9.5px; left: -22.5px"
+      ></span
+    ></a>
+    <p-menu #menu [popup]="true" [model]="authItems"></p-menu>
+  </ng-container>
+  <ng-container *ngIf="authService.user | async as user">
+    <a
+      (click)="menu.toggle($event)"
+      pRipple
+      class="inline-flex align-items-center cursor-pointer px-1 lg:px-3 mr-2 lg:mr-0 border-bottom-2 border-transparent hover:border-primary select-none"
+      ><img
+        [src]="user.avatar"
+        class="mr-2 border-round-md"
+        style="height: 30px; width: auto"
+        alt=""
+      />
+      <span class="text-900 font-bold">{{ user.name }}</span>
+    </a>
+    <p-menu #menu [popup]="true" [model]="userItems"></p-menu>
+  </ng-container>
+</div>

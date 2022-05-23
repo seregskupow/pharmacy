@@ -26,6 +26,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     ]),
   });
 
+  get emailField() {
+    return this.form.get('email');
+  }
+
+  get passwordField() {
+    return this.form.get('password');
+  }
+
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}

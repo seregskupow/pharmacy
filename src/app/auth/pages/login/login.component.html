@@ -1,58 +1,101 @@
-<form clrForm [formGroup]="form" (ngSubmit)="submit()" class="form-flex">
-  <clr-input-container>
-    <label class="clr-sr-only">Login</label>
-    <input
-      clrInput
-      formControlName="email"
-      type="text"
-      placeholder="Login"
-      name="example"
-      class="clr-col-12"
-      required
-    />
-    <clr-control-error *clrIfError="'required'"
-      >Email is required</clr-control-error
+<p-card class="w-29rem">
+  <div class="text-center mb-5">
+    <div class="text-900 text-3xl font-medium mb-3">Welcome Back</div>
+    <span class="text-600 font-medium line-height-3"
+      >Don't have an account?</span
     >
-    <clr-control-error *clrIfError="'email'">Invalid email</clr-control-error>
-  </clr-input-container>
-  <clr-password-container>
-    <label class="clr-sr-only">Password</label>
-    <input
-      clrPassword
-      formControlName="password"
-      type="password"
-      name="password"
-      placeholder="Password"
-      class="clr-col-12"
-    />
-    <clr-control-error *clrIfError="'required'"
-      >Password is required</clr-control-error
+    <a
+      routerLink="../register"
+      class="font-medium no-underline ml-2 text-blue-500 cursor-pointer"
+      >Create today!</a
     >
-    <clr-control-error *clrIfError="'invalidPattern'"
-      >Invalid pattern
-    </clr-control-error>
-  </clr-password-container>
-  <div *ngIf="responseError" class="alert alert-danger" role="alert">
-    <div class="alert-items">
-      <div class="alert-item static">
-        <div class="alert-icon-wrapper">
-          <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
-        </div>
-        <span class="alert-text">
-          {{ responseError }}
-        </span>
-      </div>
-    </div>
   </div>
-  <button
-    [disabled]="!form.valid || loading"
-    type="submit"
-    class="btn btn-primary clr-col-12"
-  >
-    <ng-container *ngIf="!loading; else spinner">Login</ng-container>
-  </button>
-  <ng-template #spinner
-    ><span class="spinner spinner-inline"> Loading... </span>
-    <span> Loading... </span></ng-template
-  >
-</form>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="field w-full">
+      <label for="username" class="block text-900 font-medium mb-2"
+        >Email</label
+      >
+      <input
+        formControlName="email"
+        id="username"
+        placeholder="example@gmail.com"
+        type="email"
+        aria-describedby="username2-help"
+        class="w-full"
+        [ngClass]="{
+          'ng-dirty': emailField?.dirty,
+          'ng-invalid': !emailField?.valid
+        }"
+        pInputText
+      />
+      <small
+        *ngIf="emailField?.dirty && emailField?.errors?.['required']"
+        id="username2-help"
+        class="p-error block"
+        >Email is required</small
+      >
+      <small
+        *ngIf="emailField?.errors?.['email']"
+        id="username2-help"
+        class="p-error block"
+        >Email is invalid</small
+      >
+    </div>
+
+    <div class="field w-full">
+      <label for="username2" class="block text-900 font-medium mb-2"
+        >Password</label
+      >
+      <p-password
+        [toggleMask]="true"
+        formControlName="password"
+        styleClass="p-password p-component p-inputwrapper p-input-icon-right w-full password-field"
+        [ngClass]="{
+          'ng-dirty': emailField?.dirty,
+          'ng-invalid': !emailField?.valid
+        }"
+      >
+        <ng-template pTemplate="header">
+          <h6>Pick a password</h6>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <p-divider></p-divider>
+          <p class="mt-2">Suggestions</p>
+          <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+            <li>At least one lowercase</li>
+            <li>At least one uppercase</li>
+            <li>At least one numeric</li>
+            <li>Minimum 8 characters</li>
+          </ul>
+        </ng-template>
+      </p-password>
+      <small
+        *ngIf="passwordField?.dirty && passwordField?.errors?.['required']"
+        class="p-error block"
+        >Password is required</small
+      >
+      <small
+        *ngIf="passwordField?.errors?.['invalidPattern']"
+        class="p-error block"
+        >Password is invalid</small
+      >
+    </div>
+    <p-message
+      *ngIf="responseError"
+      severity="error"
+      text="{{ responseError }}"
+      styleClass="mb-3 w-full"
+    ></p-message>
+    <button
+      pButton
+      pRipple
+      type="submit"
+      label="Login"
+      [disabled]="!form.valid || loading"
+      [loading]="loading"
+      icon="pi pi-user"
+      class="w-full"
+    ></button>
+  </form>
+</p-card>

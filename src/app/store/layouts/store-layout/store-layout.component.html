@@ -1,68 +1,173 @@
-<div class="main-container">
-  <div class="alert alert-app-level"></div>
-  <header class="header header-6">
-    <div class="branding">
-      <a href="..." class="nav-link">
-        <clr-icon shape="vm-bug"></clr-icon>
-        <span class="title">Project Clarity</span>
-      </a>
+<div
+  class="surface-overlay px-3 lg:px-6 flex align-items-stretch relative border-bottom-1 surface-border"
+  style="min-height: 80px"
+>
+  <div class="flex align-items-center justify-content-center">
+    <img
+      src="assets/images/google.svg"
+      alt="Image"
+      height="40"
+      class="hidden lg:inline mr-3 lg:mr-6"
+    />
+  </div>
+  <div class="flex align-items-center flex-auto">
+    <div class="p-input-icon-left w-full p-input-filled">
+      <i class="pi pi-search"></i
+      ><input
+        pinputtext=""
+        type="text"
+        placeholder="Product search"
+        class="p-inputtext p-component p-element w-full"
+      />
     </div>
-    <form class="search">
-      <label for="search_input">
-        <input
-          id="search_input"
-          type="text"
-          placeholder="Search for keywords..."
-        />
-      </label>
-    </form>
-    <div class="header-nav">
-      <a href="..." class="active nav-link" aria-current="page"
-        ><span class="nav-text">Dashboard</span></a
-      >
-      <a href="..." class="nav-link"
-        ><span class="nav-text">Interactive Analytics</span></a
-      >
-    </div>
-    <div class="header-actions mr-10">
-      <ng-container *ngIf="authService.user | async as user">
-        <clr-dropdown>
-          <button
-            class="nav-text"
-            clrDropdownTrigger
-            aria-label="open user profile"
+  </div>
+  <div class="flex ml-3 lg:ml-6">
+    <ul class="list-none p-0 m-0 flex">
+      <li class="inline-flex relative">
+        <a
+          pRipple
+          class="text-900 font-medium inline-flex align-items-center cursor-pointer px-1 lg:px-3 border-bottom-2 border-transparent hover:border-primary select-none"
+          ><i pBadge value="2" style="font-size: 1.8rem" class="pi pi-heart"></i
+          ><span class="hidden">Likes</span></a
+        >
+      </li>
+      <li class="inline-flex relative">
+        <a
+          pRipple
+          class="text-900 font-medium inline-flex align-items-center cursor-pointer px-1 lg:px-3 border-bottom-2 border-transparent hover:border-primary select-none"
+          ><i
+            pBadge
+            value="4"
+            style="font-size: 1.8rem"
+            class="pi pi-shopping-cart"
+          ></i
+          ><span class="hidden">My Cart</span></a
+        >
+      </li>
+      <div class="inline-flex py-3">
+        <p-divider layout="vertical"></p-divider>
+      </div>
+      <li class="inline-flex">
+        <app-user-btn></app-user-btn>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="flex px-4 py-8 md:px-6 lg:px-8">
+  <div class="">
+    <p-megaMenu orientation="vertical" [model]="items"></p-megaMenu>
+  </div>
+  <div class="">
+    <p-carousel [value]="products" [numVisible]="1" [numScroll]="1">
+      <ng-template let-product pTemplate="item">
+        <img [src]="product.img" class="w-full h-30rem border-round-3xl" alt=""
+      /></ng-template>
+    </p-carousel>
+  </div>
+</div>
+
+<div class="surface-section px-4 py-8 md:px-6 lg:px-8 mx-2">
+  <div class="grid border-1 surface-border border-round">
+    <div
+      class="col-12 md:col-6 lg:col-4 md:border-right-1 border-bottom-1 surface-border"
+    >
+      <div class="p-4">
+        <img src="assets/products/product-1.png" class="w-full" />
+        <div class="flex align-items-center justify-content-between mt-5 mb-3">
+          <span class="text-900 font-medium text-xl">Product Name</span
+          ><span
+            class="bg-blue-100 text-blue-700 font-bold text-sm px-2 py-1"
+            style="border-radius: 1rem"
+            >NEW</span
           >
-            <img [src]="user.avatar" class="avatar mr-5" alt="avatar" />
-            <span>{{ user.name }}</span>
-            <clr-icon shape="caret down"></clr-icon>
-          </button>
-          <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-            <a href="..." clrDropdownItem>Preferences</a>
-            <a href="#" clrDropdownItem (click)="authService.logout()"
-              >Log out</a
-            >
-          </clr-dropdown-menu>
-        </clr-dropdown>
-      </ng-container>
-      <ng-container *ngIf="!(authService.user | async) as user">
-        <clr-dropdown>
-          <button
-            class="nav-icon"
-            clrDropdownTrigger
-            aria-label="toggle settings menu"
-          >
-            <clr-icon shape="login"></clr-icon>
-          </button>
-          <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-            <a routerLink="/auth/login" clrDropdownItem>Login</a>
-            <a routerLink="/auth/register" clrDropdownItem>Register</a>
-          </clr-dropdown-menu>
-        </clr-dropdown>
-      </ng-container>
+        </div>
+        <span class="text-900">Brand</span>
+        <div class="text-900 text-xl font-medium mt-3">$120.00</div>
+      </div>
     </div>
-  </header>
-  <nav class="subnav"></nav>
-  <div class="content-container">
-    <div class="content-area"></div>
+    <div
+      class="col-12 md:col-6 lg:col-4 lg:border-right-1 border-bottom-1 surface-border"
+    >
+      <div class="p-4">
+        <img src="assets/products/product-2.png" class="w-full" />
+        <div class="flex align-items-center justify-content-between mt-5 mb-3">
+          <span class="text-900 font-medium text-xl">Product Name</span
+          ><span
+            class="bg-blue-100 text-blue-700 font-bold text-sm px-2 py-1"
+            style="border-radius: 1rem"
+            >NEW</span
+          >
+        </div>
+        <span class="text-900">Brand</span>
+        <div class="text-900 text-xl font-medium mt-3">$120.00</div>
+      </div>
+    </div>
+    <div
+      class="col-12 md:col-6 lg:col-4 md:border-right-1 lg:border-right-none border-bottom-1 surface-border"
+    >
+      <div class="p-4">
+        <img src="assets/products/product-3.png" class="w-full" />
+        <div class="flex align-items-center justify-content-between mt-5 mb-3">
+          <span class="text-900 font-medium text-xl">Product Name</span
+          ><span
+            class="bg-blue-100 text-blue-700 font-bold text-sm px-2 py-1"
+            style="border-radius: 1rem"
+            >NEW</span
+          >
+        </div>
+        <span class="text-900">Brand</span>
+        <div class="text-900 text-xl font-medium mt-3">$120.00</div>
+      </div>
+    </div>
+    <div
+      class="col-12 md:col-6 lg:col-4 lg:border-right-1 border-bottom-1 lg:border-bottom-none surface-border"
+    >
+      <div class="p-4">
+        <img src="assets/products/product-4.png" class="w-full" />
+        <div class="flex align-items-center justify-content-between mt-5 mb-3">
+          <span class="text-900 font-medium text-xl">Product Name</span
+          ><span
+            class="bg-blue-100 text-blue-700 font-bold text-sm px-2 py-1"
+            style="border-radius: 1rem"
+            >NEW</span
+          >
+        </div>
+        <span class="text-900">Brand</span>
+        <div class="text-900 text-xl font-medium mt-3">$120.00</div>
+      </div>
+    </div>
+    <div
+      class="col-12 md:col-6 lg:col-4 border-bottom-1 md:border-bottom-none md:border-right-1 surface-border"
+    >
+      <div class="p-4">
+        <img src="assets/products/product-5.png" class="w-full" />
+        <div class="flex align-items-center justify-content-between mt-5 mb-3">
+          <span class="text-900 font-medium text-xl">Product Name</span
+          ><span
+            class="bg-blue-100 text-blue-700 font-bold text-sm px-2 py-1"
+            style="border-radius: 1rem"
+            >NEW</span
+          >
+        </div>
+        <span class="text-900">Brand</span>
+        <div class="text-900 text-xl font-medium mt-3">$120.00</div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-4">
+      <div class="p-4">
+        <img src="assets/products/product-6.png" class="w-full" />
+        <div class="flex align-items-center justify-content-between mt-5 mb-3">
+          <span class="text-900 font-medium text-xl">Product Name</span
+          ><span
+            class="bg-blue-100 text-blue-700 font-bold text-sm px-2 py-1"
+            style="border-radius: 1rem"
+            >NEW</span
+          >
+        </div>
+        <span class="text-900">Brand</span>
+        <div class="text-900 text-xl font-medium mt-3">$120.00</div>
+      </div>
+    </div>
   </div>
 </div>

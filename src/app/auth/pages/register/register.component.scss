@@ -1,5 +1,14 @@
-.form-flex {
-	width: 15rem;
+::ng-deep {
+	.password-field {
+		& input {
+			width: 100% !important;
+		}
+		&.ng-dirty.ng-invalid {
+			& input {
+				border-color: #f0a9a7 !important;
+			}
+		}
+	}
 }
 
 .avatar-upload {
@@ -11,9 +20,10 @@
 		max-height: 150px;
 		width: auto;
 
-		border-radius:3px;
+		border-radius: 3px;
+		border: 1px solid var(--primary-color);
 
-		cursor:pointer;
+		cursor: pointer;
 	}
 
 	& .file-input {
@@ -24,9 +34,4 @@
 		width: auto;
 		margin: 0;
 	}
-}
-
-.clr-form-control {
-	margin-top: 0;
-	margin: 0.3rem 0 0.9rem 0;
 }

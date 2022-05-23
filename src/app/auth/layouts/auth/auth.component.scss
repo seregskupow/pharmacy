@@ -1,29 +1,22 @@
 .auth-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	position: relative;
 
-	height: 100vh;
+	max-width: 100vw;
+	min-height: 100vh;
+
+	display: flex;
+	align-items: center;
 
 	background-image: url("/assets/images/auth-bg.jpg");
 	background-size: cover;
 	background-position: center center;
-}
-.tabs {
-	display: flex;
-	justify-content: center;
-}
-::ng-deep clr-tabs .nav .nav-item {
-	&:last-of-type {
-		margin-right: 0 !important;
-	}
-}
-.auth-panel {
-	background-color: #fff;
-
-	border-radius: 3px;
+	background-attachment: fixed;
+	overflow-y: auto;
 }
 
 .auth-form {
-	// padding: 1rem;
+	width: 95%;
+	max-width: 400px;
+	height: 100%;
+	margin: 0 auto;
 }
