@@ -70,6 +70,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   //Todo
+  //Added todo2
   onChange(event: any) {
     if (!event.target?.files?.length) return;
     if (!checkIfImage(event.target.value)) {
