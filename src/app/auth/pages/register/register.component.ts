@@ -7,10 +7,8 @@ import {
 } from '@angular/core';
 import {
   AbstractControl,
-  FormBuilder,
   FormControl,
   FormGroup,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -90,7 +88,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.imgError = '';
     };
   }
-
+  
   resetImage() {
     this.avatar.next(avatarPlaceholder);
     this.imgError = '';
