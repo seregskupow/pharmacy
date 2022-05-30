@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.registerSub?.unsubscribe();
   }
 
-  //Todo
+  //Tod1
   //Added todo2
   onChange(event: any) {
     if (!event.target?.files?.length) return;
