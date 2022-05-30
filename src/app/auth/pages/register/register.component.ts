@@ -69,6 +69,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.registerSub?.unsubscribe();
   }
 
+  //Todo
   onChange(event: any) {
     if (!event.target?.files?.length) return;
     if (!checkIfImage(event.target.value)) {
@@ -88,7 +89,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.imgError = '';
     };
   }
-  
+
   resetImage() {
     this.avatar.next(avatarPlaceholder);
     this.imgError = '';
