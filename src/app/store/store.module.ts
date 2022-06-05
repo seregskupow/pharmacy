@@ -6,7 +6,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
-import { SharedModule } from 'primeng/api';
+import { ConfirmationService, SharedModule } from 'primeng/api';
 import { UserBtnComponent } from './components/user-btn/user-btn.component';
 import { MenuModule } from 'primeng/menu';
 import { RippleModule } from 'primeng/ripple';
@@ -14,9 +14,40 @@ import { DividerModule } from 'primeng/divider';
 import { BadgeModule } from 'primeng/badge';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { CarouselModule } from 'primeng/carousel';
+import { HomeComponent } from './pages/home/home.component';
+import { ProductComponent } from './pages/product/product.component';
+import { CategoryComponent } from './pages/category/category.component';
+import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { DropdownModule } from 'primeng/dropdown';
+import { SliderModule } from 'primeng/slider';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DataViewModule } from 'primeng/dataview';
+import { RatingModule } from 'primeng/rating';
+import { PanelModule } from 'primeng/panel';
+import { DialogModule } from 'primeng/dialog';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { FooterComponent } from './components/footer/footer.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { FavouritesComponent } from './pages/favourites/favourites.component';
+import { OrdersComponent } from './pages/orders/orders.component';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import { SearchComponent } from './pages/search/search.component';
 
 @NgModule({
-  declarations: [StoreLayoutComponent, UserBtnComponent],
+  declarations: [
+    StoreLayoutComponent,
+    UserBtnComponent,
+    HomeComponent,
+    ProductComponent,
+    CategoryComponent,
+    FooterComponent,
+    CartComponent,
+    FavouritesComponent,
+    OrdersComponent,
+    SearchComponent,
+  ],
   imports: [
     CommonModule,
     StoreRoutingModule,
@@ -31,6 +62,19 @@ import { CarouselModule } from 'primeng/carousel';
     BadgeModule,
     MegaMenuModule,
     CarouselModule,
+    CardModule,
+    PaginatorModule,
+    ConfirmPopupModule,
+    DropdownModule,
+    SliderModule,
+    CheckboxModule,
+    DataViewModule,
+    RatingModule,
+    PanelModule,
+    DialogModule,
+    MultiSelectModule,
+    ProgressSpinnerModule
   ],
+  providers: [ConfirmationService],
 })
 export class StoreModule {}

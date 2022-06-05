@@ -2,13 +2,12 @@
   class="surface-overlay px-3 lg:px-6 flex align-items-stretch relative border-bottom-1 surface-border"
   style="min-height: 80px"
 >
-  <div class="flex align-items-center justify-content-center">
-    <img
-      src="assets/images/google.svg"
-      alt="Image"
-      height="40"
-      class="hidden lg:inline mr-3 lg:mr-6"
-    />
+  <div
+    routerLink="/"
+    class="hidden lg:flex align-items-center justify-content-center mr-3 lg:mr-6 cursor-pointer"
+  >
+    <img src="assets/images/logo.png" alt="Image" height="40" class="mr-2" />
+    <span class="text-blue-600 font-semibold">Pharmacy</span>
   </div>
   <div class="flex align-items-center flex-auto">
     <div class="p-input-icon-left w-full p-input-filled">
@@ -17,6 +16,8 @@
         pinputtext=""
         type="text"
         placeholder="Product search"
+        [(ngModel)]="search"
+        (keyup.enter)="onSearch()"
         class="p-inputtext p-component p-element w-full"
       />
     </div>
@@ -25,19 +26,30 @@
     <ul class="list-none p-0 m-0 flex">
       <li class="inline-flex relative">
         <a
+          routerLink="favourites"
+          style="text-decoration: none"
           pRipple
           class="text-900 font-medium inline-flex align-items-center cursor-pointer px-1 lg:px-3 border-bottom-2 border-transparent hover:border-primary select-none"
-          ><i pBadge value="2" style="font-size: 1.8rem" class="pi pi-heart"></i
+          ><i
+            pBadge
+            value="{{ (favService.favsCount | async)?.length }}"
+            style="font-size: 1.8rem"
+            class="pi pi-heart"
+          ></i
           ><span class="hidden">Likes</span></a
         >
       </li>
       <li class="inline-flex relative">
         <a
+          routerLink="{{
+            (authService.isAuth | async) ? 'cart' : '/auth/login'
+          }}"
+          style="text-decoration: none"
           pRipple
           class="text-900 font-medium inline-flex align-items-center cursor-pointer px-1 lg:px-3 border-bottom-2 border-transparent hover:border-primary select-none"
           ><i
             pBadge
-            value="4"
+            value="{{ cartService.itemsCount | async }}"
             style="font-size: 1.8rem"
             class="pi pi-shopping-cart"
           ></i
@@ -53,122 +65,5 @@
     </ul>
   </div>
 </div>
-//added service //added home service //created home component
-zxczcxcx
-<div class="flex px-6 px-4 py-8 md:px-6 lg:px-8">
-  <div class="">
-    <p-megaMenu orientation="vertical" [model]="items"></p-megaMenu>
-  </div>
-  <div class="">
-    <p-carousel [value]="products" [numVisible]="1" [numScroll]="1">
-      <ng-template let-product pTemplate="item">
-        <img [src]="product.img" class="w-full h-30rem border-round-3xl" alt=""
-      /></ng-template>
-    </p-carousel>
-  </div>
-</div>
-
-<div class="surface-section px-4 py-8 md:px-6 lg:px-8 mx-2">
-  <div class="grid border-1 surface-border border-round">
-    <div
-      class="col-12 md:col-6 lg:col-4 md:border-right-1 border-bottom-1 surface-border"
-    >
-      <div class="p-4">
-        <img src="assets/products/product-1.png" class="w-full" />
-        <div class="flex align-items-center justify-content-between mt-5 mb-3">
-          <span class="text-900 font-medium text-xl">Product Name</span
-          ><span
-            class="bg-blue-100 text-blue-700 font-bold text-sm px-2 py-1"
-            style="border-radius: 1rem"
-            >NEW</span
-          >
-        </div>
-        <span class="text-900">Brand</span>
-        <div class="text-900 text-xl font-medium mt-3">$120.00</div>
-      </div>
-    </div>
-    <div
-      class="col-12 md:col-6 lg:col-4 lg:border-right-1 border-bottom-1 surface-border"
-    >
-      <div class="p-4">
-        <img src="assets/products/product-2.png" class="w-full" />
-        <div class="flex align-items-center justify-content-between mt-5 mb-3">
-          <span class="text-900 font-medium text-xl">Product Name</span
-          ><span
-            class="bg-blue-100 text-blue-700 font-bold text-sm px-2 py-1"
-            style="border-radius: 1rem"
-            >NEW</span
-          >
-        </div>
-        <span class="text-900">Brand</span>
-        <div class="text-900 text-xl font-medium mt-3">$120.00</div>
-      </div>
-    </div>
-    <div
-      class="col-12 md:col-6 lg:col-4 md:border-right-1 lg:border-right-none border-bottom-1 surface-border"
-    >
-      <div class="p-4">
-        <img src="assets/products/product-3.png" class="w-full" />
-        <div class="flex align-items-center justify-content-between mt-5 mb-3">
-          <span class="text-900 font-medium text-xl">Product Name</span
-          ><span
-            class="bg-blue-100 text-blue-700 font-bold text-sm px-2 py-1"
-            style="border-radius: 1rem"
-            >NEW</span
-          >
-        </div>
-        <span class="text-900">Brand</span>
-        <div class="text-900 text-xl font-medium mt-3">$120.00</div>
-      </div>
-    </div>
-    <div
-      class="col-12 md:col-6 lg:col-4 lg:border-right-1 border-bottom-1 lg:border-bottom-none surface-border"
-    >
-      <div class="p-4">
-        <img src="assets/products/product-4.png" class="w-full" />
-        <div class="flex align-items-center justify-content-between mt-5 mb-3">
-          <span class="text-900 font-medium text-xl">Product Name</span
-          ><span
-            class="bg-blue-100 text-blue-700 font-bold text-sm px-2 py-1"
-            style="border-radius: 1rem"
-            >NEW</span
-          >
-        </div>
-        <span class="text-900">Brand</span>
-        <div class="text-900 text-xl font-medium mt-3">$120.00</div>
-      </div>
-    </div>
-    <div
-      class="col-12 md:col-6 lg:col-4 border-bottom-1 md:border-bottom-none md:border-right-1 surface-border"
-    >
-      <div class="p-4">
-        <img src="assets/products/product-5.png" class="w-full" />
-        <div class="flex align-items-center justify-content-between mt-5 mb-3">
-          <span class="text-900 font-medium text-xl">Product Name</span
-          ><span
-            class="bg-blue-100 text-blue-700 font-bold text-sm px-2 py-1"
-            style="border-radius: 1rem"
-            >NEW</span
-          >
-        </div>
-        <span class="text-900">Brand</span>
-        <div class="text-900 text-xl font-medium mt-3">$120.00</div>
-      </div>
-    </div>
-    <div class="col-12 md:col-6 lg:col-4">
-      <div class="p-4">
-        <img src="assets/products/product-6.png" class="w-full" />
-        <div class="flex align-items-center justify-content-between mt-5 mb-3">
-          <span class="text-900 font-medium text-xl">Product Name</span
-          ><span
-            class="bg-blue-100 text-blue-700 font-bold text-sm px-2 py-1"
-            style="border-radius: 1rem"
-            >NEW</span
-          >
-        </div>
-        <span class="text-900">Brand</span>
-        <div class="text-900 text-xl font-medium mt-3">$120.00</div>
-      </div>
-    </div>
-  </div>
-</div>
+<router-outlet></router-outlet>
+<app-footer></app-footer>

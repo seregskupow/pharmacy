@@ -24,7 +24,6 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | Observable<boolean | UrlTree> {
     return this.authService.isAuth.pipe(
-      take(1),
       map((isAuth) => {
         if (isAuth) {
           return true;

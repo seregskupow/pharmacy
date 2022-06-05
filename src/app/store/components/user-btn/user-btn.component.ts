@@ -17,6 +17,10 @@ export class UserBtnComponent implements OnInit {
   ];
   userItems: MenuItem[] = [
     {
+      label: 'My orders',
+      routerLink: 'orders',
+    },
+    {
       label: 'Logout',
       command: (event) => {
         this.authService.logout();

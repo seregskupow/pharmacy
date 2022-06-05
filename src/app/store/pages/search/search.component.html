@@ -1,0 +1,145 @@
+<div
+  *ngIf="loading"
+  class="w-full h-19rem flex align-items-center justify-content-center"
+>
+  <p-progressSpinner></p-progressSpinner>
+</div>
+<div
+  *ngIf="products?.length === 0 && !loading"
+  class="w-full h-19rem flex align-items-center justify-content-center"
+>
+  <h1>No Found Products</h1>
+</div>
+<div *ngIf="!loading && products?.length > 0" class="px-6 mt-5">
+  <p-dataView
+    #dv
+    [value]="products"
+    [paginator]="true"
+    [rows]="9"
+    [first]="currentPage"
+    filterBy="name"
+    [sortField]="sortField"
+    [sortOrder]="sortOrder"
+    layout="grid"
+    [lazy]="true"
+    (onLazyLoad)="loadProducts($event)"
+    [totalRecords]="totalRecords"
+  >
+    <ng-template pTemplate="header">
+      <div class="flex flex-column md:flex-row md:justify-content-between mb-3">
+        <div class="flex flex-row gap-3">
+          <p-dropdown
+            [options]="priceSortOptions"
+            [(ngModel)]="priceSort"
+            placeholder="Sort By Price"
+            (onChange)="onPriceSortChange($event)"
+            styleClass="mb-2 md:mb-0"
+          ></p-dropdown>
+          <p-multiSelect
+            [options]="manufacturers"
+            [(ngModel)]="selectedManufacturers"
+            defaultLabel="Manufacturers"
+            optionLabel="name"
+            selectedItemsLabel="{0} items selected"
+            (onChange)="onManufacturersChange($event)"
+          ></p-multiSelect>
+        </div>
+        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+      </div>
+    </ng-template>
+    <ng-template let-product pTemplate="listItem">
+      <div class="col-12">
+        <div class="product-list-item">
+          <img src="{{ product.image }}" [alt]="product.name" />
+          <div class="product-list-detail">
+            <a [routerLink]="['/product', product.id]" class="product-name">{{
+              product.name
+            }}</a>
+            <p>Manufacturer: {{ product.Manufacturer.name }}</p>
+            <i class="pi pi-tag product-category-icon"></i
+            ><span class="product-category">{{ product.category }}</span>
+          </div>
+          <div class="product-list-action">
+            <span class="product-price">${{ product.price }}</span>
+
+            <div class="flex align-items-center mb-5">
+              <p-button
+                icon="pi pi-shopping-cart"
+                label="Add to Cart"
+                class="mr-4"
+                [disabled]="product.quantity === 0"
+                (onClick)="addToCart(product.id)"
+              ></p-button>
+              <i
+                *ngIf="!(favService.favsCount | async)?.includes(product.id)"
+                (click)="addFav(product.id)"
+                class="pi text-2xl cursor-pointer pi-heart text-600"
+              ></i>
+              <i
+                *ngIf="(favService.favsCount | async)?.includes(product.id)"
+                (click)="removeFav(product.id)"
+                class="pi text-2xl cursor-pointer pi-heart-fill text-orange-500"
+              ></i>
+            </div>
+
+            <span
+              [class]="
+                'product-badge status-' + productStatus(product.quantity)
+              "
+              >{{ productStatus(product.quantity) }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template let-product pTemplate="gridItem">
+      <div class="col-12 md:col-4">
+        <div class="product-grid-item card">
+          <div class="product-grid-item-top">
+            <div>
+              <i class="pi pi-tag product-category-icon"></i>
+              <span class="product-category">{{ "asd" }}</span>
+            </div>
+            <span
+              [class]="
+                'product-badge status-' + productStatus(product.quantity)
+              "
+              >{{ productStatus(product.quantity) }}</span
+            >
+          </div>
+          <div class="product-grid-item-content">
+            <img [src]="product.image" [alt]="product.name" />
+            <div class="">
+              <a [routerLink]="['/product', product.id]" class="product-name">{{
+                product.name
+              }}</a>
+            </div>
+
+            <p>Manufacturer: {{ product.Manufacturer.name }}</p>
+          </div>
+          <div class="product-grid-item-bottom">
+            <span class="product-price">${{ product.price }}</span>
+            <div class="flex align-items-center mb-5">
+              <p-button
+                icon="pi pi-shopping-cart"
+                class="mr-4"
+                [disabled]="product.quantity === 0"
+                (onClick)="addToCart(product.id)"
+              ></p-button>
+              <i
+                *ngIf="!(favService.favsCount | async)?.includes(product.id)"
+                (click)="addFav(product.id)"
+                class="pi text-2xl cursor-pointer pi-heart text-600"
+              ></i>
+              <i
+                *ngIf="(favService.favsCount | async)?.includes(product.id)"
+                (click)="removeFav(product.id)"
+                class="pi text-2xl cursor-pointer pi-heart-fill text-orange-500"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>

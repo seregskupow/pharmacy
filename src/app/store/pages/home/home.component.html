@@ -1,0 +1,65 @@
+<div class="flex px-6 px-4 py-8 md:px-6 lg:px-8">
+  <div class="px-8">
+    <p-megaMenu orientation="vertical" [model]="categories"></p-megaMenu>
+  </div>
+  <div class="">
+    <p-carousel
+      [circular]="true"
+      [value]="products"
+      [numVisible]="1"
+      [numScroll]="1"
+    >
+      <ng-template let-product pTemplate="item">
+        <img
+          [src]="product.img"
+          class="w-full h-30rem border-round-3xl"
+          style="object-fit: cover"
+          alt=""
+      /></ng-template>
+    </p-carousel>
+  </div>
+</div>
+
+<div class="px-8">
+  <h2 class="mb-5">Popular manufacturers</h2>
+  <p-carousel
+    [circular]="true"
+    [value]="manufacturers"
+    [numVisible]="3"
+    [numScroll]="1"
+  >
+    <ng-template let-manufacturer pTemplate="item">
+      <div class="flex align-items-center justify-content-center">
+        <img
+          [src]="manufacturer.logo"
+          class="h-3rem border-round-3xl"
+          alt=""
+        /></div
+    ></ng-template>
+  </p-carousel>
+</div>
+
+<div class="surface-section px-4 py-8 md:px-6 lg:px-8 mx-2">
+  <h2 class="mb-4">Products you may like</h2>
+  <div class="grid border-1 surface-border border-round">
+    <div
+      *ngFor="let product of popularProducts"
+      class="col-12 md:col-6 lg:col-4 md:border-right-1 border-bottom-1 surface-border"
+    >
+      <div class="p-4">
+        <img src="{{ product.image }}" class="w-full" />
+        <div class="flex align-items-center justify-content-between mt-5 mb-3">
+          <a
+            [routerLink]="['/product', product.id]"
+            class="text-900 font-medium text-xl"
+            >{{ product.name }}</a
+          >
+        </div>
+        <span class="text-900">{{ product.Manufacturer.name }}</span>
+        <div class="text-900 text-xl font-medium mt-3">
+          ${{ product.price }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

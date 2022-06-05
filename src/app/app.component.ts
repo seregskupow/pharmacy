@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/services/auth.service';
 import { PrimeNGConfig } from 'primeng/api';
+import { FavouritesService } from './store/services/favourites.service';
+import { CartService } from './store/services/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -19,11 +21,15 @@ export class AppComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private primengConfig: PrimeNGConfig
+    private primengConfig: PrimeNGConfig,
+    private favService: FavouritesService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
     this.authService.authenticate();
+    this.favService.getFavourites();
+    this.cartService.getCartItems().subscribe();
   }
 }

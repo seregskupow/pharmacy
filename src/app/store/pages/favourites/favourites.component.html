@@ -1,0 +1,69 @@
+<div
+  *ngIf="loading"
+  class="w-full h-19rem flex align-items-center justify-content-center"
+>
+  <p-progressSpinner></p-progressSpinner>
+</div>
+<div
+  *ngIf="favItems.length === 0 && !loading"
+  class="w-full h-19rem flex align-items-center justify-content-center"
+>
+  <h1>No Favourites</h1>
+</div>
+<div class="px-8">
+  <ul class="list-none p-0 m-0">
+    <li
+      *ngFor="let product of favItems"
+      class="flex flex-column md:flex-row py-6 border-top-1 border-bottom-1 surface-border md:align-items-center"
+    >
+      <img
+        src="{{ product.image }}"
+        class="w-12rem flex-shrink-0 mx-auto md:mx-0"
+      />
+      <div class="flex-auto py-5 md:pl-5">
+        <div
+          class="flex flex-wrap align-items-start sm:align-items-center sm:flex-row sm:justify-content-between surface-border pb-6"
+        >
+          <div class="w-full sm:w-6 flex flex-column">
+            <span class="text-900 text-xl font-medium mb-3">{{
+              product.name
+            }}</span>
+          </div>
+          <div class="flex w-full sm:w-6 flex justify-content-end mt-3 sm:mt-0">
+            <div class="flex flex-column sm:align-items-end">
+              <div class="flex gap-1">
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  label=""
+                  icon="pi pi-minus"
+                  class="p-button-outlined p-button-rounded p-button-danger mb-4"
+                  (click)="removeFav(product.id)"
+                ></button>
+              </div>
+
+              <span class="text-900 text-xl font-medium mb-2 sm:mb-3"
+                >${{ product.price }}</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-column">
+          <span class="inline-flex align-items-center mb-3"
+            ><i class="pi pi-envelope text-600 mr-2"></i
+            ><span class="text-600 mr-2">Order today.</span></span
+          ><span class="inline-flex align-items-center mb-3"
+            ><i class="pi pi-send text-600 mr-2"></i
+            ><span class="text-600 mr-2"
+              >Delivery by <span class="font-bold">Dec 23.</span></span
+            ></span
+          ><span class="flex align-items-center"
+            ><i class="pi pi-exclamation-triangle text-600 mr-2"></i
+            ><span class="text-600">Only 8 Available.</span></span
+          >
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

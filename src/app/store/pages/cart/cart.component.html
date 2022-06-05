@@ -1,0 +1,127 @@
+<div
+  *ngIf="loading"
+  class="w-full h-19rem flex align-items-center justify-content-center"
+>
+  <p-progressSpinner></p-progressSpinner>
+</div>
+<div
+  *ngIf="products.length === 0 && !loading"
+  class="w-full h-19rem flex align-items-center justify-content-center"
+>
+  <h1>Your cart is empty</h1>
+</div>
+
+<div
+  *ngIf="!loading && products.length > 0"
+  class="surface-section px-4 py-8 md:px-6 lg:px-8"
+>
+  <div class="flex flex-column align-items-center mb-6">
+    <div class="text-900 text-4xl mb-4 font-medium text-center">
+      Your cart total is ${{ cartTotal }}
+    </div>
+    <p class="text-600 font-medium text-xl mt-0 mb-4">
+      FREE SHIPPING AND RETURN
+    </p>
+    <button
+      pbutton=""
+      pripple=""
+      label="Check Out"
+      (click)="redirectToCheckout()"
+      class="p-ripple p-element p-button p-component"
+    >
+      <span class="p-ink"></span><span class="p-button-label">Check Out</span>
+    </button>
+  </div>
+  <ul class="list-none p-0 m-0">
+    <li
+      *ngFor="let product of products"
+      class="flex flex-column md:flex-row py-6 border-top-1 border-bottom-1 surface-border md:align-items-center"
+    >
+      <img
+        src="{{ product.Product.image }}"
+        class="w-12rem flex-shrink-0 mx-auto md:mx-0"
+      />
+      <div class="flex-auto py-5 md:pl-5">
+        <div
+          class="flex flex-wrap align-items-start sm:align-items-center sm:flex-row sm:justify-content-between surface-border pb-6"
+        >
+          <div class="w-full sm:w-6 flex flex-column">
+            <span class="text-900 text-xl font-medium mb-3">{{
+              product.Product.name
+            }}</span>
+          </div>
+          <div class="flex w-full sm:w-6 flex justify-content-end mt-3 sm:mt-0">
+            <div class="flex flex-column sm:align-items-end">
+              <div class="flex gap-1">
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  label=""
+                  icon="pi pi-plus"
+                  class="p-button-outlined p-button-rounded p-button-primary mb-4"
+                  (click)="addItem(product.productId)"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  label=""
+                  icon="pi pi-minus"
+                  class="p-button-outlined p-button-rounded p-button-danger mb-4"
+                  (click)="removeItem(product.productId)"
+                ></button>
+              </div>
+
+              <span class="text-900 text-xl font-medium mb-2 sm:mb-3"
+                >${{ product.Product.price }} x {{ product.quantity }}</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-column">
+          <span class="inline-flex align-items-center mb-3"
+            ><i class="pi pi-envelope text-600 mr-2"></i
+            ><span class="text-600 mr-2">Order today.</span></span
+          ><span class="inline-flex align-items-center mb-3"
+            ><i class="pi pi-send text-600 mr-2"></i
+            ><span class="text-600 mr-2"
+              >Delivery by <span class="font-bold">Dec 23.</span></span
+            ></span
+          ><span class="flex align-items-center"
+            ><i class="pi pi-exclamation-triangle text-600 mr-2"></i
+            ><span class="text-600">Only 8 Available.</span></span
+          >
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div class="flex">
+    <div class="w-12rem hidden md:block"></div>
+    <ul class="list-none py-0 pr-0 pl-0 md:pl-5 mt-6 mx-0 mb-0 flex-auto">
+      <li class="flex justify-content-between mb-4">
+        <span class="text-xl text-900">Shipping</span
+        ><span class="text-xl text-900">Free</span>
+      </li>
+      <li
+        class="flex justify-content-between border-top-1 surface-border mb-4 pt-4"
+      >
+        <span class="text-xl text-900 font-bold text-3xl">Total</span
+        ><span class="text-xl text-900 font-bold text-3xl"
+          >${{ cartTotal }}</span
+        >
+      </li>
+      <li class="flex justify-content-end">
+        <button
+          pbutton=""
+          pripple=""
+          label="Check Out"
+          class="p-ripple p-element p-button p-component"
+        >
+          <span class="p-ink"></span
+          ><span class="p-button-label">Check Out</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
