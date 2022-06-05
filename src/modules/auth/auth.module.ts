@@ -7,11 +7,13 @@ import { GoogleStrategy } from './strategies/google.strategy';
 import { SessionSerializer } from './utils/serialize';
 import { UsersModule } from '@modules/users/users.module';
 import { ImgUploadModule } from '@core/imageUploader/img-upload.module';
+import { CartModule } from '@modules/cart/cart.module';
 
 @Module({
   imports: [
     PassportModule.register({ session: true, defaultStrategy: 'local' }),
     UsersModule,
+    CartModule,
     ImgUploadModule,
   ],
   providers: [AuthService, LocalStrategy, GoogleStrategy, SessionSerializer],

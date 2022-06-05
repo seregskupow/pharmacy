@@ -27,8 +27,6 @@ model Order {
   customerId     Int              @map("customer_id")
   total          Decimal
   adress         String
-  OrderStatus    OrderStatus      @relation(fields: [orderStatusId], references: [id])
-  orderStatusId  Int              @map("orderstatus_id")
   OrderToProduct OrderToProduct[]
   createdAt      DateTime         @default(now()) @map("created_at")
   updatedAt      DateTime         @updatedAt @map("updated_at")
@@ -37,27 +35,25 @@ model Order {
 }
 
 model OrderStatus {
-  id    Int     @id @default(autoincrement())
-  name  String
-  Order Order[]
+  id   Int    @id @default(autoincrement())
+  name String
+
 
   @@map("order_status")
 }
 
 model Product {
-  id                Int                 @id @default(autoincrement())
-  name              String
-  description       String
-  image             String
-  price             Decimal
-  quantity          Int
-  Category          Category?           @relation(fields: [categoryId], references: [id])
-  categoryId        Int?                @map("category_id")
-  OrderToProduct    OrderToProduct[]
-  CategoryToProduct CategoryToProduct[]
-  CartToProduct     CartToProduct[]
-  Manufacturer      Manufacturer?       @relation(fields: [manufacturerId], references: [id])
-  manufacturerId    Int?                @map("manufacturer_id")
+  id             Int                 @id @default(autoincrement())
+  name           String
+  description    String
+  image          String
+  price          Decimal
+  quantity       Int
+  OrderToProduct OrderToProduct[]
+  CartToProduct  CartToProduct[]
+  Manufacturer   Manufacturer?       @relation(fields: [manufacturerId], references: [id])
+  manufacturerId Int?                @map("manufacturer_id")
+  categories     CategoryToProduct[]
 
   @@map("product")
 }
@@ -67,6 +63,7 @@ model OrderToProduct {
   orderId   Int     @map("order_id")
   Product   Product @relation(fields: [productId], references: [id])
   productId Int     @map("product_id")
+  quantity  Int
 
   @@id([orderId, productId])
   @@map("order_to_product")
@@ -84,25 +81,24 @@ model Manufacturer {
 }
 
 model Category {
-  id                Int                 @id @default(autoincrement())
-  createdAt         DateTime            @default(now()) @map("created_at")
-  updatedAt         DateTime            @updatedAt @map("updated_at")
-  Products          Product[]
-  name              String
-  description       String
-  image             String
-  parentCategoryId  Int?                @map("parent_category_id")
-  ParentCategory    Category?           @relation("CategoryToCategory", fields: [parentCategoryId], references: [id])
-  SubCategories     Category[]          @relation("CategoryToCategory")
-  CategoryToProduct CategoryToProduct[]
+  id               Int                 @id @default(autoincrement())
+  createdAt        DateTime            @default(now()) @map("created_at")
+  updatedAt        DateTime            @updatedAt @map("updated_at")
+  name             String
+  description      String
+  image            String
+  parentCategoryId Int?                @map("parent_category_id")
+  ParentCategory   Category?           @relation("CategoryToCategory", fields: [parentCategoryId], references: [id])
+  SubCategories    Category[]          @relation("CategoryToCategory")
+  products         CategoryToProduct[]
 
   @@map("category")
 }
 
 model CategoryToProduct {
-  Category   Category @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int      @map("category_id")
-  Product    Product  @relation(fields: [productId], references: [id])
+  product    Product  @relation(fields: [productId], references: [id])
   productId  Int      @map("product_id")
 
   @@id([categoryId, productId])
@@ -124,7 +120,7 @@ model CartToProduct {
   Cart      Cart     @relation(fields: [cartId], references: [id])
   cartId    Int      @map("cart_id")
   Product   Product  @relation(fields: [productId], references: [id])
-  productId Int      @map("product_id")
+  productId Int      @unique @map("product_id")
   quantity  Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

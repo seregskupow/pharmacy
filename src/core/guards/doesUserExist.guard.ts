@@ -22,6 +22,9 @@ export class DoesUserExist implements CanActivate {
       });
     });
     const email = postMulterRequest.body.email;
+    if (!email) {
+      throw new NotAcceptableException('Email is invalid');
+    }
     return this.validateRequest(email);
   }
 

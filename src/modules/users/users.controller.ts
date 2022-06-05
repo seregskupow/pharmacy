@@ -6,14 +6,27 @@ import {
   Patch,
   Param,
   Delete,
+  ClassSerializerInterceptor,
+  UseGuards,
+  UseInterceptors,
+  Req,
 } from '@nestjs/common';
 import { UsersService } from './services/users.service';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { CreateUserDto } from './dto/createUser.dto';
+import { AuthenticatedGuard } from '@core/guards/authenticated.guard';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @Get('/me')
+  @UseGuards(AuthenticatedGuard)
+  @UseInterceptors(ClassSerializerInterceptor)
+  getMe(@Req() req: SessionRequest) {
+    console.log({ USER: req.user });
+    return req.user;
+  }
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {

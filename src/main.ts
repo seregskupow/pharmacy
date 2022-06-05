@@ -9,15 +9,20 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidateInputPipe } from './core/prisma/pipes/validate.pipe';
 import { BadRequestException } from '@nestjs/common';
+import { json, urlencoded } from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api/v1');
   app.use(morgan('tiny'));
-
+  app.enableCors({
+    origin: 'http://localhost:4200',
+    credentials: true,
+  });
   app.useGlobalPipes(
     new ValidateInputPipe({
       exceptionFactory: (errors) => new BadRequestException(errors),
+      transform: true,
     }),
   );
   const SessionStore = ConnectPG(session);
@@ -32,7 +37,6 @@ async function bootstrap() {
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
-      //store: MongoStore.create({ mongoUrl: process.env.MONGO_URL_DEV }),
       store: new SessionStore({
         tableName: 'user_sessions',
         pool,
@@ -42,6 +46,9 @@ async function bootstrap() {
   );
   app.use(passport.initialize());
   app.use(passport.session());
+
+  app.use(json({ limit: '50mb' }));
+  app.use(urlencoded({ extended: true, limit: '50mb' }));
   await app.listen(1337);
 }
 bootstrap();

@@ -80,16 +80,20 @@ async function generateManufacturers() {
   });
 }
 function generateProducts(amount: number) {
-  const products: Prisma.ProductCreateWithoutCategoryInput[] = [];
+  const products: any[] = [];
   for (let i = 0; i < amount; i++) {
     products.push({
-      name: faker.commerce.productName(),
-      description: faker.commerce.productDescription(),
-      price: faker.commerce.price(),
-      image: faker.image.business(250, 250),
-      quantity: 69,
-      Manufacturer: {
-        connect: { id: randomInteger(0, 2) },
+      product: {
+        create: {
+          name: faker.commerce.productName(),
+          description: faker.commerce.productDescription(),
+          price: faker.commerce.price(),
+          image: faker.image.business(250, 250),
+          quantity: 69,
+          Manufacturer: {
+            connect: { id: randomInteger(0, 2) },
+          },
+        },
       },
     });
   }
@@ -141,7 +145,7 @@ async function generateCategoriesWithProducts() {
       ParentCategory: {
         connect: { id: medicamentCategory.id },
       },
-      Products: {
+      products: {
         create: [...generateProducts(10)],
       },
     },
@@ -154,7 +158,7 @@ async function generateCategoriesWithProducts() {
       ParentCategory: {
         connect: { id: medicamentCategory.id },
       },
-      Products: {
+      products: {
         create: [...generateProducts(15)],
       },
     },
@@ -167,7 +171,7 @@ async function generateCategoriesWithProducts() {
       ParentCategory: {
         connect: { id: medicamentCategory.id },
       },
-      Products: {
+      products: {
         create: [...generateProducts(5)],
       },
     },
@@ -180,7 +184,7 @@ async function generateCategoriesWithProducts() {
       ParentCategory: {
         connect: { id: vitaminsCategory.id },
       },
-      Products: {
+      products: {
         create: [...generateProducts(25)],
       },
     },
@@ -193,7 +197,7 @@ async function generateCategoriesWithProducts() {
       ParentCategory: {
         connect: { id: vitaminsCategory.id },
       },
-      Products: {
+      products: {
         create: [...generateProducts(10)],
       },
     },

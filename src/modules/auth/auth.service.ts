@@ -5,12 +5,14 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { googlePayload } from './types';
 import { Customer } from '@prisma/client';
+import { CartService } from '@modules/cart/cart.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UsersService,
     private readonly jwtService: JwtService,
+    private cartService: CartService,
   ) {}
   public async validateUser(
     userEmail: string,
@@ -32,7 +34,7 @@ export class AuthService {
     const pass = await this.hashPassword(user.password);
 
     const newUser = await this.userService.create({ ...user, password: pass });
-    console.log({ createUser: newUser });
+    await this.cartService.create(newUser.id);
     return newUser;
   }
 
@@ -54,6 +56,7 @@ export class AuthService {
       avatar,
       googleId,
     });
+    await this.cartService.create(newUser.id);
     return newUser;
   }
 
