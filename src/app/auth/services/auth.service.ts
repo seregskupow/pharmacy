@@ -10,6 +10,8 @@ import { User } from '@dto/user.dto';
 import { environment } from '@env/environment';
 import { dataURItoBlob } from '@utils/dataUriToBlob';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
+import { CartService } from 'src/app/store/services/cart.service';
+import { FavouritesService } from 'src/app/store/services/favourites.service';
 
 export interface AuthResponseData {
   email: string;
@@ -27,7 +29,12 @@ export class AuthService {
   public user = this._user.asObservable();
   public isAuth = this._isAuth.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cartService: CartService,
+    private favService: FavouritesService
+  ) {}
 
   signup(email: string, name: string, password: string, avatar: string) {
     const headers = new HttpHeaders({
@@ -100,11 +107,14 @@ export class AuthService {
     const user = new User(email, name, avatar);
     this._user.next(user);
     this._isAuth.next(true);
+    this.cartService.getCartItems().subscribe();
   }
 
   private handleLogout() {
     this._user.next(null);
     this._isAuth.next(false);
+    this.cartService.clear();
+    this.favService.clear();
   }
 
   private handleError(errorRes: HttpErrorResponse) {

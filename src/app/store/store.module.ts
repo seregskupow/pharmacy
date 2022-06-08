@@ -6,7 +6,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
-import { ConfirmationService, SharedModule } from 'primeng/api';
+import { ConfirmationService, MessageService, SharedModule } from 'primeng/api';
 import { UserBtnComponent } from './components/user-btn/user-btn.component';
 import { MenuModule } from 'primeng/menu';
 import { RippleModule } from 'primeng/ripple';
@@ -32,8 +32,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { FavouritesComponent } from './pages/favourites/favourites.component';
 import { OrdersComponent } from './pages/orders/orders.component';
-import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SearchComponent } from './pages/search/search.component';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -73,8 +74,9 @@ import { SearchComponent } from './pages/search/search.component';
     PanelModule,
     DialogModule,
     MultiSelectModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ToastModule,
   ],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService, MessageService],
 })
 export class StoreModule {}
